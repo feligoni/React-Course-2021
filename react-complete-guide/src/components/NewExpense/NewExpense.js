@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./NewExpense.css";
 import ExpenseForm from "./ExpenseForm";
 
@@ -11,11 +11,29 @@ const NewExpense = (props) => {
     props.onAddExpense(expenseData);
   };
 
-  return (
-    <div className="new-expense">
-      <ExpenseForm onSaveExpenseData={saveExpenseDataHandler} />
-    </div>
-  );
+  const [isShow, setIsShow] = useState(false);
+
+  const onClickHandler = (e) => {
+    setIsShow(!isShow);
+  };
+
+  if (!isShow) {
+    return (
+      <div className="new-expense">
+        <button onClick={onClickHandler}> Add New Expense</button>
+      </div>
+    );
+  } else {
+    return (
+      <div className="new-expense">
+        <ExpenseForm
+          onSaveExpenseData={saveExpenseDataHandler}
+          onClickEvent={onClickHandler}
+        />
+        ;
+      </div>
+    );
+  }
 };
 
 export default NewExpense;
